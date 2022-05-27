@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 
     :root {
         --background: #f0f2f5; 
+        --background-habits: #E5E5E5;
         --blue-light: #52B6FF ;// para botões de login e sign-up
         --blue-medium: #126BA5;
         --gray-ligth: #CFCFCF; //botões de dias da semana
@@ -50,7 +51,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
 
-    body, input, textarea, button {
+    body, input, textarea, span, button {
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
     }
