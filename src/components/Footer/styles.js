@@ -3,7 +3,19 @@ import styled from 'styled-components';
 export const Container = styled.div`
 
     width: 91px;
+    a { 
+        text-decoration: none;
+    }
 `
+
+export const Exemplo = styled.div`
+width: 91px;
+height: 91px;
+margin-bottom: 35px;
+
+`
+
+
 
 export const FooterNav = styled.div`
     display: flex;

@@ -1,20 +1,19 @@
 
 import { Link, useNavigate } from "react-router-dom";
-
 import React from "react";
-
-
 import { useState } from "react";
-
 import axios from "axios";
 
-import ContainerInitial from "../Container/ContainerInitial";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
+import ContainerInitial from "../Container/ContainerInitial";
 import logoImg from "../../assets/images/logo.svg"; 
 import { ContainerLogin } from "./styles";
 
 export default function SignInPage() {
 
+    const {setToken} = useContext(UserContext); 
     const navigate = useNavigate(); 
 
     const [email, setEmail] = useState('');
@@ -32,8 +31,8 @@ export default function SignInPage() {
 
         promise
             .then(res => {
-            console.log(res.data); 
             navigate("/habits")
+            setToken(res.data.token); 
         })
             .catch(err => {
                 console.log(err); 

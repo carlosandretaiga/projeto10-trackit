@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     margin-top: 80px;
-    padding-bottom: 500px;
+    padding-bottom: 600px;
 
     h2 {
         font-family: 'Lexend Deca';
@@ -165,7 +165,8 @@ export const ButtonDay = styled.div`
 export const Navbar = styled.div`
     position: fixed;
     display: flex;
-    align-items: center;
+    justify-content: start;
+    
 `
 
 export const ButtonAddition = styled.div`
