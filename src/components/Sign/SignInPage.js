@@ -4,6 +4,8 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
+import { ThreeDots } from "react-loader-spinner";
+
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
@@ -14,14 +16,28 @@ import { ContainerLogin } from "./styles";
 export default function SignInPage() {
 
     const {setToken} = useContext(UserContext); 
+    const {setProfileImg} = useContext(UserContext); 
+
     const navigate = useNavigate(); 
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [pageLoaded, setPageLoaded] = useState(false); 
+
+    function fillLoading() {
+        return !pageLoaded ? (
+            <ThreeDots color="#fff" height={40} width={40} />
+
+        ) : (
+            "Entrar"
+        ); 
+    }
+
+
+
 
     function login() {
-
         const body = {
             email, 
             password, 
@@ -31,14 +47,15 @@ export default function SignInPage() {
 
         promise
             .then(res => {
-            navigate("/habits")
+            navigate("/today")
             setToken(res.data.token); 
+            setProfileImg(res.data.image); 
+            console.log(res.data.image);
         })
             .catch(err => {
                 console.log(err); 
             })
     }
-
 
     return (
 
@@ -51,7 +68,10 @@ export default function SignInPage() {
 
           
             <form>
-                <input placeholder="e-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input 
+                placeholder="e-mail"
+                type="email" value={email}
+                onChange={(e) => setEmail(e.target.value)}></input>
 
                 <input placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
             </form>

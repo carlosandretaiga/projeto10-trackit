@@ -28,6 +28,56 @@ export const Container = styled.div`
     }
 
 `
+
+export const ButtonDelete = styled.div`
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+`
+
+export const ListsHabits = styled.div` 
+
+    display: flex;
+    margin-top: 50px;
+    width: 340px;
+    height: 50px;
+
+`
+
+export const ListHabit = styled.div`
+    padding-left: 15px;
+    width: 340px;
+    height: 91px;
+    background: #FFFFFF;
+    border-radius: 5px;
+
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+    color: #666666;
+
+`
+
+export const ListHabitTop = styled.div`
+padding-top: 10px;
+margin-right: 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+img {
+    left: 89.07%;
+    right: 7.47%;
+    top: 23.69%;
+    bottom: 74.06%;
+}
+
+`
+
+
+
 export const RegisterHabitsBottom = styled.div`
 margin-top: 20px;
 margin-right: 15px;
@@ -37,7 +87,7 @@ align-items: center;
 
 `
 
-export const ButtonToSave = styled.div`
+export const ButtonToSave = styled.button`
 
 display: flex;
 justify-content: center;
@@ -57,8 +107,9 @@ text-align: center;
 color: #FFFFFF;
 width: 84px;
 height: 35px;
-
+box-shadow: 0px; 
 background: #52B6FF;
+border-color: #52B6FF;
 border-radius: 4.63636px;
 
 `

@@ -16,7 +16,11 @@ export const Container = styled.header`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
     img {
-        padding-right: 0.7rem;
+        margin-right: 10px;
+        width: 51px;
+        object-fit: cover;
+        height: 51px;
+        border-radius: 100%;
     }
 
 

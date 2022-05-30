@@ -3,79 +3,130 @@ import ContainerHabits from "../Container/ContainerHabits";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
+import deletImg from "../../assets/images/delete.svg"
+
+import { useNavigate, useParams } from "react-router-dom";
+
 import axios from "axios";
+
+
 
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
-import { Container, ButtonAddition, Navbar, RegisterHabits, ButtonDay, ButtonWeek, RegisterHabitsBottom, ButtonToSave, ButtonToCancel } from "./styles";
+import { Container, ButtonAddition, ListsHabits, ButtonDelete, Navbar, RegisterHabits, ButtonDay, ButtonWeek, RegisterHabitsBottom, ButtonToSave, ButtonToCancel, ListHabit, ListHabitTop } from "./styles";
+
+//Comentários: o post tem quer ter a url, body, autorization.
+// O body pode ser qualquer coisa
+
+//Para marcar um hábito como concluido, tem que manda um body no post: 
+//"url, {}, config"
+//bota url, null, config
+
 
 export default function Habits() {
 
     const { token } = useContext(UserContext);
-    //console.log(token); 
+
+    const navigate = useNavigate(); 
+
+    const [reload, setReload] = useState(0);
 
     const [mensagem, setMensagem] = useState([]);
+    const [idHabit, setIdHabit] = useState(); 
 
     useEffect(() => {
 
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: 'Bearer ' + `${token}`
+                //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzI5MCwiaWF0IjoxNjUzODQwNTQ1fQ.p6Nuh_FgowRLiNEgMBFaaZKAe-ceeT8HzSOOHurEB04"
             }
         }
-
-        console.log(config);
-
-
+        
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         promise
             .then(res => {
-                console.log(res.data);
-                const mensagem = res.data;
-                setMensagem(mensagem);
-                //mensagem = "Amor"; 
-                //setMensagem(mensagem); 
-                //if(res.data.length === 0) return console.log(mensagem); 
+                if(res.data.length !== 0) {
+                    const newListHabits = res.data; 
+                    setMensagem(newListHabits); 
+                }
 
             })
             .catch(err => {
                 console.log(err.message);
-                //mensagem = "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!";
-                //setMensagem(mensagem); 
-                //console.log(mensagem); 
+                
+                //alert("Conexão não realizada") 
             })
 
-    }, [])
+    }, [reload])
 
-    console.log(mensagem);
+    
+ 
+    const [nameHabit, setNameHabit] = useState(''); 
+    const [dayNumber, setDayNumber] = useState([]); 
+    const [days, setDays] = useState(["D", "S", "T", "Q", "Q", "S", "S"]); 
 
-    function AddHabit() {
-        return (
-            <>
-                <RegisterHabits>
-                    <input placeholder="nome do hábito" type="email"></input>
-                    <ButtonWeek>
-                        <ButtonDay>D</ButtonDay>
-                        <ButtonDay>S</ButtonDay>
-                        <ButtonDay>T</ButtonDay>
-                        <ButtonDay>Q</ButtonDay>
-                        <ButtonDay>Q</ButtonDay>
-                        <ButtonDay>S</ButtonDay>
-                        <ButtonDay>S</ButtonDay>
-                    </ButtonWeek>
 
-                    <RegisterHabitsBottom>
-                        <ButtonToCancel onClick={MostrarCard}>Cancelar</ButtonToCancel>
-                        <ButtonToSave>Salvar</ButtonToSave>
-                    </RegisterHabitsBottom>
+    
+    function deleteHabit(index,nome) {
+        console.log("Chegou aqui")
+        console.log(index); 
+        console.log(nome.id); 
+        const idHabit = nome.id; 
+        setIdHabit(idHabit); 
 
-                </RegisterHabits>
+       const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idHabit}`, {
+            headers: {
+              Authorization: 'Bearer ' + `${token}`
+            }
+          });
 
-            </>
-        )
+          promise
+            .then(res => {
+                console.log(res.data); 
+            //setMensagem([...res.data]);
+            setMensagem(mensagem)
+            //navigate("/habits")
+
+        })
+            .catch(err => {
+                console.log(err); 
+            })
+          
+
     }
+
+    function selectDay(index,day) {
+        
+        setDayNumber([...dayNumber, index]); 
+        console.log(dayNumber);    
+    }
+
+    function clearInputs() {
+        setNameHabit(""); 
+    }
+
+    function submitForm(event) {
+        event.preventDefault(); 
+        console.log("Foi"); 
+
+        const data = {
+            name: nameHabit,
+	        days: dayNumber 
+        }
+
+        axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", data, {
+            headers: {
+              Authorization: 'Bearer ' + `${token}`
+            }
+          });
+        //promise.then(setCardIsVisible); 
+        //console.log(data); 
+
+    }
+
 
     const [cardIsVisible, setCardIsVisible] = useState(false); 
 
@@ -95,13 +146,44 @@ export default function Habits() {
                         <ButtonAddition onClick={MostrarCard}>+</ButtonAddition>
                     </Navbar>
 
-                    {cardIsVisible ? <AddHabit setCardIsVisible={setCardIsVisible}/> : ""}
+                    {cardIsVisible ? 
+                    <RegisterHabits>
 
+                    <form onSubmit={submitForm}>
+                        <input placeholder="nome do hábito" type="text" onChange={(e) => setNameHabit(e.target.value)} value={nameHabit} required></input>
+                        <ButtonWeek>
+                            {days.map((day,index) => <ButtonDay onClick={() => selectDay(index, day)} key={index}>{day}</ButtonDay>)}
+                        </ButtonWeek>
+
+                        <RegisterHabitsBottom>
+                            <ButtonToCancel onClick={MostrarCard}>Cancelar</ButtonToCancel>
+                            <ButtonToSave>Salvar</ButtonToSave>
+                        </RegisterHabitsBottom>
+                    </form>
+                  
+                    </RegisterHabits>
+                     : ""}
+
+                     
+                     {mensagem.map((nome, index) => 
+                <ListsHabits>
+                     <ListHabit key={index}>
+                         <ListHabitTop>
+                         {nome.name}
+                         <ButtonDelete onClick={() => deleteHabit(index,nome)}><img src={deletImg} alt="delete"></img></ButtonDelete>
+                         </ListHabitTop>
+
+                         <ButtonWeek>
+                            {days.map((day,index) => <ButtonDay key={index}>{day}</ButtonDay>)}
+                        </ButtonWeek>
+
+                     </ListHabit>
+                </ListsHabits>
+                     )}
 
                     {
-                        mensagem.length === 0 ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : <p></p>
+                        mensagem.length === 0 ? <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : <p></p>
                     }
-
 
                 </Container>
                 <Footer></Footer>

@@ -18,13 +18,19 @@ export default function App() {
 
     const [token, setToken] = useState(''); 
 
+    const [profileImg, setProfileImg] = useState(''); 
+
     return (
         <BrowserRouter>
-                 <UserContext.Provider value={{token, setToken}}>
+                 <UserContext.Provider value={
+                     {token, setToken, 
+                    profileImg, setProfileImg, 
+                     }
+                }>
             <Routes>
                 <Route path='/' element={<SignInPage />}/>
                 <Route path='/sign-up' element={<SignUpPage />}/>
-                <Route path='/habits' element={<Habits />}/>
+                <Route path='/habits/' element={<Habits />}/>
                 <Route path='/today' element={<Today />}/>
                 <Route path='/historic' element={<Historic />}/>
            </Routes>

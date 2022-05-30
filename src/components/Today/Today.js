@@ -1,4 +1,9 @@
 import React from "react";
+
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+
+
 import ContainerHabits from "../Container/ContainerHabits";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -18,7 +23,7 @@ export default function Today() {
 
                 <Container>
                     <Navbar>
-                        <h2>Segunda, 17/05</h2>
+                        <h2>{dayjs().locale("pt-br").format("dddd, DD/MM")}</h2>
                         
                     </Navbar>
 

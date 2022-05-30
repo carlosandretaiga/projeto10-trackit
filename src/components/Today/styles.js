@@ -165,7 +165,7 @@ export const ButtonDay = styled.div`
 export const Navbar = styled.div`
     position: fixed;
     display: flex;
-    justify-content: start;
+    
     
 `
 
