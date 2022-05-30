@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
     margin-top: 80px;
     padding-bottom: 600px;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+
 
     h2 {
         font-family: 'Lexend Deca';
@@ -20,14 +24,70 @@ export const Container = styled.div`
         font-weight: 400;
         font-size: 17.976px;
         line-height: 22px;
-        margin-top: 40px;
+        margin-top: 10px;
         width: 338px;
       
 
-        color: #666666;
+        color: #BABABA;
     }
 
 `
+export const ContainerPercentage = styled.h4`
+  margin-bottom: 5px;
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17.976px;
+  line-height: 22px;
+  color: ${props=>props.color};
+`;
+
+
+export const ContainerHabit = styled.header`
+  display: flex;
+  padding: 13px 13px 13px 13px;
+  width: 95%;
+  height: 94px;
+  background: #ffffff;
+  border-radius: 5px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+
+  .ionicon {
+    width: 69px;
+    height: 69px;
+    fill: ${(props) => props.fill};
+  }
+
+  h2 {
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+    color: #666666;
+  }
+
+  h3 {
+    display: flex;
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.976px;
+    line-height: 16px;
+    color: #666666;
+  }
+
+  strong {
+    margin-left: 5px;
+    color: ${(props) => props.color};
+  }
+
+
+`
+
+export const ContainerText = styled.div``;
+
 export const RegisterHabitsBottom = styled.div`
 margin-top: 20px;
 margin-right: 15px;
@@ -36,7 +96,6 @@ justify-content: end;
 align-items: center;
 
 `
-
 export const ButtonToSave = styled.div`
 
 display: flex;
@@ -90,7 +149,6 @@ border-radius: 4.63636px;
 
 `
 
-
 export const RegisterHabits = styled.div`
     padding-top: 20px;
     padding-left: 15px;
@@ -130,7 +188,6 @@ export const RegisterHabits = styled.div`
     }
 }
 `
-
 export const ButtonWeek = styled.div`
     margin-top: 12px;
     margin-left: 0px;
@@ -165,8 +222,7 @@ export const ButtonDay = styled.div`
 export const Navbar = styled.div`
     position: fixed;
     display: flex;
-    
-    
+    justify-content: start;   
 `
 
 export const ButtonAddition = styled.div`

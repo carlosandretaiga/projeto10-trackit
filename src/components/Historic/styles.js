@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     margin-top: 80px;
     padding-bottom: 500px;
+    margin-left: 15px;
 
     h2 {
         font-family: 'Lexend Deca';

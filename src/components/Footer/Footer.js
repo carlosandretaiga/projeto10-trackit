@@ -11,13 +11,18 @@ import {
   // Radial separators
 //import RadialSeparators from "./RadialSeparators";
 
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
 import { Container, FooterNav, Exemplo} from "./styles";
 
-const percentage = 46;
+
 
 
 
 export default function Footer() {
+
+  const { percentage } = useContext(UserContext);
 
  
 
